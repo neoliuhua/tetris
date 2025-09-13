@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">经典俄罗斯方块</string>
+    <string name="start">开始</string>
+    <string name="pause">暂停</string>
+    <string name="resume">继续</string>
+    <string name="left">左</string>
+    <string name="right">右</string>
+    <string name="rotate">旋转</string>
+    <string name="down">加速下落</string>
+    <string name="score">分数: %d</string>
+    <string name="level">等级: %d</string>
+    <string name="game_over">游戏结束!</string>
+</resources>

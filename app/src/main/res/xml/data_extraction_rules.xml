@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
+    <cloud-backup>
+        <!-- Include none of the app's data in cloud backups -->
+        <exclude domain="root" path="*"/>
+    </cloud-backup>
+    
+    <device-transfer>
+        <!-- Include all app data in device-to-device transfers -->
+        <include domain="root" path="*"/>
+    </device-transfer>
+</data-extraction-rules>
