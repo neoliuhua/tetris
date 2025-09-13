@@ -25,13 +25,13 @@ class GameView @JvmOverloads constructor(
     private val ghostBlockPaint = Paint().apply {
         style = Paint.Style.FILL
         isAntiAlias = true
-        alpha = 80 // 设置半透明效果
+        alpha = 150 // 设置半透明效果为90
     }
     private val ghostLinePaint = Paint().apply {
         style = Paint.Style.STROKE
         isAntiAlias = true
         strokeWidth = 2f
-        alpha = 100 // 设置半透明效果
+        alpha = 150 // 设置半透明效果为90
         // 设置虚线效果
         pathEffect = android.graphics.DashPathEffect(floatArrayOf(5f, 5f), 0f)
     }

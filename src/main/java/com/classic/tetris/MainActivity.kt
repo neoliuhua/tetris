@@ -30,6 +30,17 @@ class MainActivity : AppCompatActivity() {
             handler.postDelayed(this, 500 - (gameView.level - 1) * 50L)
         }
     }
+    
+    private val fastDropRunnable = object : Runnable {
+        override fun run() {
+            if (isDropButtonPressed) {
+                gameView.moveDown()
+                updateUI()
+                handler.postDelayed(this, 50) // 加速下坠的时间间隔
+            }
+        }
+    }
+    private var isDropButtonPressed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +105,25 @@ class MainActivity : AppCompatActivity() {
             }
             lastDropClickTime = clickTime
         }
+        
+        dropButton.setOnTouchListener { v, event ->
+            when (event.action) {
+                android.view.MotionEvent.ACTION_DOWN -> {
+                    // 按下按钮时，开始加速下坠
+                    isDropButtonPressed = true
+                    handler.post(fastDropRunnable)
+                    true
+                }
+                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
+                    // 释放按钮时，停止加速下坠
+                    isDropButtonPressed = false
+                    handler.removeCallbacks(fastDropRunnable)
+                    v.performClick() // 确保点击事件仍然触发
+                    false
+                }
+                else -> false
+            }
+        }
     }
     
     private fun startGameLoop() {
@@ -120,6 +150,8 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
         gameView.pauseGame()
         stopGameLoop()
+        isDropButtonPressed = false
+        handler.removeCallbacks(fastDropRunnable)
     }
     
     override fun onResume() {
