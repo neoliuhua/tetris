@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         override fun run() {
             gameView.update()
             updateUI()
-            handler.postDelayed(this, 500 - (gameView.level - 1) * 50L)
+            handler.postDelayed(this, (500 - (gameView.level - 1) * 50L) / 2)
         }
     }
     
