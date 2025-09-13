@@ -3520,6 +3520,7 @@ int id startVertical 0x7f0801ad
 int id staticLayout 0x7f0801ae
 int id staticPostLayout 0x7f0801af
 int id stop 0x7f0801b0
+int id stopButton 0x7f0801fa
 int id stretch 0x7f0801b1
 int id submenuarrow 0x7f0801b2
 int id submit_area 0x7f0801b3

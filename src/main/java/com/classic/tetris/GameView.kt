@@ -70,6 +70,20 @@ class GameView @JvmOverloads constructor(
         isPaused = false
     }
     
+    fun resetGame() {
+        for (y in 0 until GameConstants.BOARD_HEIGHT) {
+            for (x in 0 until GameConstants.BOARD_WIDTH) {
+                board[y][x] = 0
+            }
+        }
+        score = 0
+        level = 1
+        isPaused = false
+        isGameOver = false
+        currentBlock = null
+        nextBlock = null
+    }
+    
     fun moveLeft() {
         if (!isPaused && !isGameOver) {
             currentBlock?.moveLeft(board)
@@ -131,20 +145,6 @@ class GameView @JvmOverloads constructor(
         if (!isPaused && !isGameOver) {
             moveDown()
         }
-    }
-    
-    private fun resetGame() {
-        for (y in 0 until GameConstants.BOARD_HEIGHT) {
-            for (x in 0 until GameConstants.BOARD_WIDTH) {
-                board[y][x] = 0
-            }
-        }
-        score = 0
-        level = 1
-        isPaused = false
-        isGameOver = false
-        currentBlock = null
-        nextBlock = null
     }
     
     private fun generateNewBlock() {

@@ -3,6 +3,7 @@ package com.classic.tetris
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var levelTextView: TextView
     private lateinit var startButton: Button
     private lateinit var pauseButton: Button
+    private lateinit var stopButton: Button
     private lateinit var moveLeftButton: Button
     private lateinit var moveRightButton: Button
     private lateinit var rotateButton: Button
@@ -47,7 +49,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         
         initializeViews()
+        
+        // 初始状态下，除了开始按钮外，其他按钮都禁用
+        pauseButton.isEnabled = false
+        stopButton.isEnabled = false
+        moveLeftButton.isEnabled = false
+        moveRightButton.isEnabled = false
+        rotateButton.isEnabled = false
+        dropButton.isEnabled = false
+        
+        // 设置按钮点击事件
         setupButtonListeners()
+        
+        // 初始化UI
+        updateUI()
     }
     
     private fun initializeViews() {
@@ -56,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         levelTextView = findViewById(R.id.levelTextView)
         startButton = findViewById(R.id.startButton)
         pauseButton = findViewById(R.id.pauseButton)
+        stopButton = findViewById(R.id.stopButton)
         moveLeftButton = findViewById(R.id.moveLeftButton)
         moveRightButton = findViewById(R.id.moveRightButton)
         rotateButton = findViewById(R.id.rotateButton)
@@ -68,30 +84,56 @@ class MainActivity : AppCompatActivity() {
             startGameLoop()
             startButton.isEnabled = false
             pauseButton.isEnabled = true
+            stopButton.isEnabled = true
+            moveLeftButton.isEnabled = true
+            moveRightButton.isEnabled = true
+            rotateButton.isEnabled = true
+            dropButton.isEnabled = true
         }
         
         pauseButton.setOnClickListener {
             if (gameView.isPaused) {
                 gameView.resumeGame()
-                pauseButton.text = "继续"
+                pauseButton.text = "暂停"
                 startGameLoop()
             } else {
                 gameView.pauseGame()
-                pauseButton.text = "暂停"
+                pauseButton.text = "继续"
                 stopGameLoop()
             }
         }
         
+        stopButton.setOnClickListener {
+            gameView.resetGame()
+            stopGameLoop()
+            gameView.invalidate()
+            startButton.isEnabled = true
+            pauseButton.isEnabled = false
+            stopButton.isEnabled = false
+            moveLeftButton.isEnabled = false
+            moveRightButton.isEnabled = false
+            rotateButton.isEnabled = false
+            dropButton.isEnabled = false
+            pauseButton.text = "暂停"
+            updateUI()
+        }
+        
         moveLeftButton.setOnClickListener {
             gameView.moveLeft()
+            gameView.invalidate()
+            updateUI()
         }
         
         moveRightButton.setOnClickListener {
             gameView.moveRight()
+            gameView.invalidate()
+            updateUI()
         }
         
         rotateButton.setOnClickListener {
             gameView.rotate()
+            gameView.invalidate()
+            updateUI()
         }
         
         dropButton.setOnClickListener {
@@ -104,26 +146,30 @@ class MainActivity : AppCompatActivity() {
                 gameView.moveDown()
             }
             lastDropClickTime = clickTime
+            gameView.invalidate()
+            updateUI()
         }
         
-        dropButton.setOnTouchListener { v, event ->
-            when (event.action) {
-                android.view.MotionEvent.ACTION_DOWN -> {
-                    // 按下按钮时，开始加速下坠
-                    isDropButtonPressed = true
-                    handler.post(fastDropRunnable)
-                    true
+        // 为dropButton添加触摸监听器，实现按住加速下坠功能
+        dropButton.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // 按下按钮时，开始加速下坠
+                        isDropButtonPressed = true
+                        handler.post(fastDropRunnable)
+                    }
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        // 释放按钮时，停止加速下坠
+                        isDropButtonPressed = false
+                        handler.removeCallbacks(fastDropRunnable)
+                        // 确保点击事件仍然触发
+                        v?.performClick()
+                    }
                 }
-                android.view.MotionEvent.ACTION_UP, android.view.MotionEvent.ACTION_CANCEL -> {
-                    // 释放按钮时，停止加速下坠
-                    isDropButtonPressed = false
-                    handler.removeCallbacks(fastDropRunnable)
-                    v.performClick() // 确保点击事件仍然触发
-                    false
-                }
-                else -> false
+                return true
             }
-        }
+        })
     }
     
     private fun startGameLoop() {
