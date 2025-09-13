@@ -3217,6 +3217,7 @@ id content
 id contentPanel
 id contiguous
 id continuousVelocity
+id controlButtons
 id coordinator
 id cos
 id counterclockwise
@@ -3253,6 +3254,7 @@ id dragLeft
 id dragRight
 id dragStart
 id dragUp
+id dropButton
 id dropdown_menu
 id easeIn
 id easeInOut
@@ -3366,6 +3368,8 @@ id month_navigation_next
 id month_navigation_previous
 id month_title
 id motion_base
+id moveLeftButton
+id moveRightButton
 id mtrl_anchor_parent
 id mtrl_calendar_day_selector_frame
 id mtrl_calendar_days_of_week
@@ -3455,6 +3459,7 @@ id right
 id rightToLeft
 id right_icon
 id right_side
+id rotateButton
 id rounded
 id row_index_key
 id save_non_transition_alpha

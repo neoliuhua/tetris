@@ -4,7 +4,7 @@
             "outputFile": "com.classic.tetris-mergeDebugResources-29:/values-v25/values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\2c013af4a4087c179915fa6252b75f9b\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
+                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\a328c6bb6a087932d090a00db8585b8b\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

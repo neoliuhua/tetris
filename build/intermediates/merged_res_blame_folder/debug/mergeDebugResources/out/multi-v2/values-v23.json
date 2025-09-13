@@ -4,7 +4,7 @@
             "outputFile": "com.classic.tetris-mergeDebugResources-29:/values-v23/values-v23.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\2c013af4a4087c179915fa6252b75f9b\\transformed\\appcompat-1.6.1\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\a328c6bb6a087932d090a00db8585b8b\\transformed\\appcompat-1.6.1\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,20,34,35,36,39,43,44,45,46",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -15,7 +15,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\88436968c6cc3f4b8852178eb3d2e583\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\d58b779c083f4cc764a5c097fdf6f4f2\\transformed\\cardview-1.0.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -34,7 +34,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\654972433dcd4e623d9976c7a963654e\\transformed\\material-1.11.0\\res\\values-v23\\values-v23.xml",
+                    "source": "C:\\Users\\unplu\\.gradle\\caches\\9.0.0\\transforms\\2450021154ac97bbf59ec36d3389506d\\transformed\\material-1.11.0\\res\\values-v23\\values-v23.xml",
                     "from": {
                         "startLines": "2,5,9,13,16,19,22,25,28,32",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",

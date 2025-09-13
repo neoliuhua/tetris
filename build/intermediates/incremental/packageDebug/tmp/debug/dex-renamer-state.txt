@@ -1,7 +1,7 @@
-#Wed Aug 27 12:27:26 CST 2025
-base.0=D\:\\elsfk\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=D\:\\elsfk\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=D\:\\elsfk\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
+#Sat Sep 13 20:16:54 CST 2025
+base.0=D\:\\tetris\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\tetris\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=D\:\\tetris\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=13/classes.dex

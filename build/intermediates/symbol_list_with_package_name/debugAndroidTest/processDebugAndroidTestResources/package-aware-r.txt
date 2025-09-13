@@ -1,0 +1,3 @@
+com.classic.tetris.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

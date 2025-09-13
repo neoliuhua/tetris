@@ -16,8 +16,16 @@
         "source": "com.classic.tetris-main-33:/xml/data_extraction_rules.xml"
     },
     {
+        "merged": "com.classic.tetris-debug-31:/mipmap-xxxhdpi_ic_launcher.xml.flat",
+        "source": "com.classic.tetris-main-33:/mipmap-xxxhdpi/ic_launcher.xml"
+    },
+    {
         "merged": "com.classic.tetris-debug-31:/xml_backup_rules.xml.flat",
         "source": "com.classic.tetris-main-33:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.classic.tetris-debug-31:/mipmap-xxhdpi_ic_launcher.xml.flat",
+        "source": "com.classic.tetris-main-33:/mipmap-xxhdpi/ic_launcher.xml"
     },
     {
         "merged": "com.classic.tetris-debug-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",

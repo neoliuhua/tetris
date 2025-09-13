@@ -51,6 +51,16 @@ class Block(val type: BlockType, var x: Int, var y: Int) {
         )
     }
     
+    // 添加一个辅助构造函数，用于创建方块的副本
+    constructor(type: BlockType, x: Int, y: Int, shape: Array<IntArray>) : this(type, x, y) {
+        // 复制传入的形状，创建深拷贝
+        for (i in shape.indices) {
+            for (j in shape[i].indices) {
+                this.shape[i][j] = shape[i][j]
+            }
+        }
+    }
+    
     fun moveLeft(board: Array<IntArray>): Boolean {
         x--
         if (collides(board)) {

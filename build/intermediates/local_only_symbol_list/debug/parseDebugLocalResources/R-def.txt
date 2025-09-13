@@ -14,9 +14,14 @@ color teal_200
 color teal_700
 color white
 color yellow
+id controlButtons
+id dropButton
 id gameView
 id levelTextView
+id moveLeftButton
+id moveRightButton
 id pauseButton
+id rotateButton
 id scoreTextView
 id startButton
 layout activity_main

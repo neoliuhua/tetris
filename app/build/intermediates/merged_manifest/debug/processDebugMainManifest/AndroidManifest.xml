@@ -23,7 +23,6 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:testOnly="true"
         android:theme="@style/Theme.ClassicTetris" >
         <activity
             android:name="com.classic.tetris.MainActivity"
