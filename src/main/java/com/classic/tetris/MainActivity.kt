@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     
     private val handler = Handler(Looper.getMainLooper())
     private var lastDropClickTime: Long = 0
+    private var lastMoveLeftClickTime: Long = 0
+    private var lastMoveRightClickTime: Long = 0
     private val DOUBLE_CLICK_TIME_DELTA: Long = 300 // 双击时间间隔（毫秒）
     private val updateRunnable = object : Runnable {
         override fun run() {
@@ -42,7 +44,29 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    
+    private val fastMoveLeftRunnable = object : Runnable {
+        override fun run() {
+            if (isMoveLeftButtonPressed) {
+                gameView.moveLeft()
+                updateUI()
+                handler.postDelayed(this, 50) // 加速左移的时间间隔
+            }
+        }
+    }
+    
+    private val fastMoveRightRunnable = object : Runnable {
+        override fun run() {
+            if (isMoveRightButtonPressed) {
+                gameView.moveRight()
+                updateUI()
+                handler.postDelayed(this, 50) // 加速右移的时间间隔
+            }
+        }
+    }
     private var isDropButtonPressed = false
+    private var isMoveLeftButtonPressed = false
+    private var isMoveRightButtonPressed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -119,13 +143,33 @@ class MainActivity : AppCompatActivity() {
         }
         
         moveLeftButton.setOnClickListener {
-            gameView.moveLeft()
+            val clickTime = System.currentTimeMillis()
+            if (clickTime - lastMoveLeftClickTime < DOUBLE_CLICK_TIME_DELTA) {
+                // 双击检测 - 加速向左移动
+                while (gameView.getCurrentBlock()?.moveLeft(gameView.getBoard()) == true) {
+                    // 持续向左移动直到无法移动
+                }
+            } else {
+                // 单击 - 正常向左移动一格
+                gameView.moveLeft()
+            }
+            lastMoveLeftClickTime = clickTime
             gameView.invalidate()
             updateUI()
         }
         
         moveRightButton.setOnClickListener {
-            gameView.moveRight()
+            val clickTime = System.currentTimeMillis()
+            if (clickTime - lastMoveRightClickTime < DOUBLE_CLICK_TIME_DELTA) {
+                // 双击检测 - 加速向右移动
+                while (gameView.getCurrentBlock()?.moveRight(gameView.getBoard()) == true) {
+                    // 持续向右移动直到无法移动
+                }
+            } else {
+                // 单击 - 正常向右移动一格
+                gameView.moveRight()
+            }
+            lastMoveRightClickTime = clickTime
             gameView.invalidate()
             updateUI()
         }
@@ -150,26 +194,49 @@ class MainActivity : AppCompatActivity() {
             updateUI()
         }
         
-        // 为dropButton添加触摸监听器，实现按住加速下坠功能
-        dropButton.setOnTouchListener(object : View.OnTouchListener {
-            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                when (event?.action) {
-                    MotionEvent.ACTION_DOWN -> {
-                        // 按下按钮时，开始加速下坠
-                        isDropButtonPressed = true
-                        handler.post(fastDropRunnable)
-                    }
-                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                        // 释放按钮时，停止加速下坠
-                        isDropButtonPressed = false
-                        handler.removeCallbacks(fastDropRunnable)
-                        // 确保点击事件仍然触发
-                        v?.performClick()
-                    }
+        dropButton.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    isDropButtonPressed = true
+                    handler.post(fastDropRunnable)
                 }
-                return true
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    isDropButtonPressed = false
+                    handler.removeCallbacks(fastDropRunnable)
+                }
             }
-        })
+            false
+        }
+        
+        // 为moveLeftButton添加触摸监听器，实现按住加速左移功能
+        moveLeftButton.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    isMoveLeftButtonPressed = true
+                    handler.post(fastMoveLeftRunnable)
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    isMoveLeftButtonPressed = false
+                    handler.removeCallbacks(fastMoveLeftRunnable)
+                }
+            }
+            false
+        }
+        
+        // 为moveRightButton添加触摸监听器，实现按住加速右移功能
+        moveRightButton.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    isMoveRightButtonPressed = true
+                    handler.post(fastMoveRightRunnable)
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    isMoveRightButtonPressed = false
+                    handler.removeCallbacks(fastMoveRightRunnable)
+                }
+            }
+            false
+        }
     }
     
     private fun startGameLoop() {
@@ -197,7 +264,11 @@ class MainActivity : AppCompatActivity() {
         gameView.pauseGame()
         stopGameLoop()
         isDropButtonPressed = false
+        isMoveLeftButtonPressed = false
+        isMoveRightButtonPressed = false
         handler.removeCallbacks(fastDropRunnable)
+        handler.removeCallbacks(fastMoveLeftRunnable)
+        handler.removeCallbacks(fastMoveRightRunnable)
     }
     
     override fun onResume() {

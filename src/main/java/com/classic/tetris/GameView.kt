@@ -147,6 +147,14 @@ class GameView @JvmOverloads constructor(
         }
     }
     
+    fun getCurrentBlock(): Block? {
+        return currentBlock
+    }
+    
+    fun getBoard(): Array<IntArray> {
+        return board
+    }
+    
     private fun generateNewBlock() {
         currentBlock = nextBlock ?: createRandomBlock()
         nextBlock = createRandomBlock()
